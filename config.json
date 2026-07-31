@@ -1,0 +1,9 @@
+{
+    "log_file": "logs/NetPlus.log",
+    "device_file": "devices.json",
+    "ssh_username": "admin",
+    "ssh_password": "password",
+    "ssh_port": 22,
+    "ssh_timeout": 5,
+    "default_command": "show version"
+}
