@@ -6,9 +6,12 @@ from checker.ping import ping
 from checker.traceroute import traceroute
 from checker.ssh import ssh_connect
 from logger import log
+from threading import Thread
+from backup import backup
 devices = load_device()
 
-for device in devices:
+
+def check_device(device):
     if ping(device["ip"]):
         message = f'{device["name"]} ({device["ip"]}) 🟢 UP'
         print(message)
@@ -18,6 +21,7 @@ for device in devices:
         if output:
             print(output)
             log(output)
+            backup(device["name"], output)
 
     else:
         message = f'{device["name"]} ({device["ip"]}) 🔴 DOWN'
@@ -26,3 +30,11 @@ for device in devices:
         message = traceroute(device["ip"])
         print(message)
         log(message)
+
+threads = []
+for device in devices:
+    thread = Thread(target=check_device, args=(device,))
+    thread.start()
+    threads.append(thread)
+for thread in threads:
+    thread.join()

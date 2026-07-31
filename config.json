@@ -1,9 +1,10 @@
 {
     "log_file": "logs/NetPlus.log",
+    "backup_device": "backups",
     "device_file": "devices.json",
     "ssh_username": "admin",
     "ssh_password": "password",
     "ssh_port": 22,
     "ssh_timeout": 5,
-    "default_command": "show version"
+    "default_command": "show running-config"
 }
