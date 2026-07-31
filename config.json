@@ -6,5 +6,8 @@
     "ssh_password": "password",
     "ssh_port": 22,
     "ssh_timeout": 5,
-    "default_command": "show running-config"
+    "default_commands":
+    ["show version",
+    "show ip interface brief",
+    "show running-config"]
 }

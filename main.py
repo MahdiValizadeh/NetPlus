@@ -15,14 +15,13 @@ def check_device(device):
     if ping(device["ip"]):
         message = f'{device["name"]} ({device["ip"]}) 🟢 UP'
         print(message)
-
         log(message)
-        output = ssh_connect(device["ip"], config["default_command"])
-        if output:
-            print(output)
-            log(output)
-            backup(device["name"], output)
-
+        outputs = ssh_connect(device["ip"], config["default_commands"])
+        if outputs:
+            backup(device["name"], outputs)
+            for command, output in outputs.items():
+                print(output)
+                log(output)
     else:
         message = f'{device["name"]} ({device["ip"]}) 🔴 DOWN'
         print(message)
