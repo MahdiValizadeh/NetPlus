@@ -1,7 +1,6 @@
 {
     "log_file": "logs/NetPlus.log",
     "backup_device": "backups",
-    "device_file": "devices.json",
     "report_file": "reports/report.html",
 
     "ssh_username": "your_username",

@@ -1,6 +1,6 @@
 from alert.email_alert import send_email
 from alert.telegram_alert import send_telegram
-from logger import log
+from logger import logger
 def send_alerts(results):
     errors = []
     for device in results:
@@ -12,14 +12,14 @@ def send_alerts(results):
         telegram_result=send_telegram(message)
         if email_result["success"]:
             print("Email Sent")
-            log("Email Alert Sent")
+            logger.info("Email Alert Sent")
         else:
             print(email_result["error"])
-            log(email_result["error"])
+            logger.error(email_result["error"])
 
         if telegram_result["success"]:
             print("Telegram Sent")
-            log("Telegram Alert Sent")
+            logger.info("Telegram Alert Sent")
         else:
             print(telegram_result["error"])
-            log(telegram_result["error"])
+            logger.error(telegram_result["error"])

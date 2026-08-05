@@ -1,8 +1,7 @@
 import os
 from loader.config_loader import load_config
 config = load_config()
-
-from loader.device_loader import load_device
+from database.db_loader import load_device
 from checker.ping import ping
 from checker.traceroute import traceroute
 from checker.ssh import ssh_connect
