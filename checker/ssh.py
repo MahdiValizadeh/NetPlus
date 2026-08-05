@@ -1,4 +1,7 @@
 import paramiko
+from paramiko import AuthenticationException, SSHException
+from paramiko.ssh_exception import IncompatiblePeer
+from socket import timeout
 from loader.config_loader import load_config
 config = load_config()
 def ssh_connect(ip, commands):
@@ -16,9 +19,35 @@ def ssh_connect(ip, commands):
         for command in commands:
             stdin, stdout, stderr = client.exec_command(command)
             outputs[command] = stdout.read().decode()
-        return outputs
-    except Exception:
-        return None
+        return {
+        "success": True,
+        "output": outputs
+        }
+    except AuthenticationException:
+        return {
+        "success": False,
+        "error": "Authentication Failed"
+        }
+    except IncompatiblePeer:
+        return {
+            "success": False,
+            "error": "Legacy SSH KEX Algorithm"
+        }
+    except SSHException:
+        return {
+        "success": False,
+        "error": "SSH Connection Failed"
+        } 
+    except timeout:
+        return {
+        "success": False,
+        "error": "SSH Timeout"
+        }
+    except Exception as e:
+        return {
+        "success": False,
+        "error": f"Unknown Error: {e}"
+        }
     finally:
         if client:
             client.close()

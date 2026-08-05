@@ -1,0 +1,24 @@
+{
+    "log_file": "logs/NetPlus.log",
+    "backup_device": "backups",
+    "device_file": "devices.json",
+    "report_file": "reports/report.html",
+
+    "ssh_username": "your_username",
+    "ssh_password": "your_password",
+    "ssh_port": 22,
+    "ssh_timeout": 5,
+
+    "email_sender": "your_email@gmail.com",
+    "email_receiver": "receiver_email@gmail.com",
+    "email_password": "your_app_password",
+
+    "telegram_token": "your_bot_token",
+    "telegram_chat_id": "your_chat_id",
+
+    "default_commands": [
+        "show version",
+        "show ip interface brief",
+        "show running-config"
+    ]
+}

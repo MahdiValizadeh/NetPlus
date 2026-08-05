@@ -1,7 +1,11 @@
-from datetime import datetime
+import logging
 from loader.config_loader import load_config
 config = load_config()
-def log(message):
-    with open(config["log_file"], "a") as file:
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        file.write(f"[{timestamp}] {message}\n")
+logging.basicConfig(
+    filename=config["log_file"],
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    encoding="utf-8"
+)
+logger = logging.getLogger("NetPlus")

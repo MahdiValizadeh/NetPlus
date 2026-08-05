@@ -1,5 +1,21 @@
+# Python
 __pycache__/
 *.pyc
+
+# VSCode
 .vscode/
+
+# Virtual Environment
 .venv/
+
+# Logs
 logs/
+*.log
+
+# Runtime files
+reports/
+backups/
+
+# Sensitive config
+config.json
+devices.json

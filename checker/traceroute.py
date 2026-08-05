@@ -1,5 +1,10 @@
 import subprocess
 def traceroute(ip):
-    result = subprocess.run(["traceroute", ip], capture_output=True, text=True)
-    return result.stdout
-#print(trace("8.8.8.8"))
+    try:
+        result = subprocess.run(["tracert", ip], capture_output=True, text=True)
+        if result.returncode == 0:
+            return result.stdout
+        else:
+            return f"Traceroute Failed\n{result.stderr}"
+    except Exception as e:
+        return f"Traceroute Error: {e}"
