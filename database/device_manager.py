@@ -76,6 +76,3 @@ def get_device_by_name(name):
     device = cursor.fetchone()
     connection.close()
     return device
-device = get_device_by_name("Core-R3")
-
-print(device)
