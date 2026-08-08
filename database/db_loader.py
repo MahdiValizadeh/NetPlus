@@ -4,7 +4,7 @@ def load_device():
     cursor = connection.cursor()
     cursor.execute(
         """
-        SELECT name, ip
+        SELECT id, name, ip
         FROM devices
         WHERE enabled = 1
         """
@@ -14,7 +14,8 @@ def load_device():
     devices = []
     for row in rows:
         devices.append({
-            "name": row[0],
-            "ip": row[1]
+            "id":row[0],
+            "name": row[1],
+            "ip": row[2]
         })
     return devices

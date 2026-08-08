@@ -101,3 +101,35 @@ def get_device_by_name(name):
     device = cursor.fetchone()
     connection.close()
     return device
+def save_monitoring_result(
+        device_id,
+        status,
+        ssh_status,
+        backup_status,
+        error=None
+):
+    connection = sqlite3.connect("netplus.db")
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO monitoring_logs
+        (
+            device_id,
+            status,
+            ssh_status,
+            backup_status,
+            error
+        )
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        (
+            device_id,
+            status,
+            ssh_status,
+            backup_status,
+            error
+        )
+    )
+    connection.commit()
+    connection.close()
