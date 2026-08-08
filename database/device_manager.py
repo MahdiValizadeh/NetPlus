@@ -101,6 +101,7 @@ def get_device_by_name(name):
     device = cursor.fetchone()
     connection.close()
     return device
+
 def save_monitoring_result(
         device_id,
         status,
@@ -133,3 +134,50 @@ def save_monitoring_result(
     )
     connection.commit()
     connection.close()
+
+def get_monitoring_history():
+    connection = sqlite3.connect("netplus.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        """
+        SELECT *
+        FROM monitoring_logs
+        ORDER BY id DESC
+        """
+    )
+    logs = cursor.fetchall()
+    connection.close()
+    return logs
+
+def get_monitoring_by_device(device_id):
+    connection = sqlite3.connect("netplus.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        """
+        SELECT *
+        FROM monitoring_logs
+        WHERE device_id = ?
+        ORDER BY id DESC
+        """,
+        (device_id,)
+    )
+    logs = cursor.fetchall()
+    connection.close()
+    return logs
+
+def get_failed_monitoring():
+    connection = sqlite3.connect("netplus.db")
+    cursor = connection.cursor()
+    cursor.execute(
+        """
+        SELECT *
+        FROM monitoring_logs
+        WHERE status != 'UP'
+           OR ssh_status != 'OK'
+           OR backup_status != 'OK'
+        ORDER BY id DESC
+        """
+    )
+    logs = cursor.fetchall()
+    connection.close()
+    return logs
